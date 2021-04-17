@@ -3,7 +3,7 @@ from decouple import config
 import discord
 
 TOKEN = config("TOKEN")
-WELCOME_GUILD = config("WELCOME_GUILD")
+
 logging.basicConfig(level=logging.INFO)
 
 intents = discord.Intents.default()
