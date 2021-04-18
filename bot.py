@@ -3,6 +3,10 @@ from decouple import config
 import discord
 
 TOKEN = config("TOKEN")
+INTRO_CHANNEL = config("INTRO_CHANNEL")
+RULE_CHANNEL = config("RULE_CHANNEL")
+ANN_CHANNEL = config("ANN_CHANNEL")
+ROLE_CHANNEL = config("ROLE_CHANNEL")
 
 logging.basicConfig(level=logging.INFO)
 
@@ -19,8 +23,16 @@ async def on_ready():
 async def on_member_join(member):
     print(member)
     guild = member.guild
-    to_send = 'Welcome {0.mention} to {1.name}!'.format(member, guild)
-    print(to_send)
+    introduction = client.get_channel(INTRO_CHANNEL)
+    rules = client.get_channel(RULE_CHANNEL)
+    announcements = client.get_channel(ANN_CHANNEL)
+    self_roles = client.get_channel(ROLE_CHANNEL)
+    
+    to_send = """Hey {0.mention}, welcome to Quorans! 
+Before moving forward please head over to the <#776135350287728690> channel and introduce yourself. Making an introduction is mandatory, to gain access to the server.
+Read the <#776147848709275679> channel and abide by it, please.
+For main announcements, we have <#776331788062687242> channel. You can take up self roles in <#776791052924616745> channel.
+Enjoy your stay here, have fun slight_smile""".format(member)
     await guild.system_channel.send(to_send)
 
 
