@@ -1,13 +1,13 @@
 import logging
 from decouple import config
 import discord
-
+from profiles.quora import User
 TOKEN = config("TOKEN")
 
 logging.basicConfig(level=logging.INFO)
 
-intents = discord.Intents.default()
-intents.members = True
+intents = discord.Intents.all()
+#intents.members = True
 
 client = discord.Client(intents=intents)
 
@@ -31,5 +31,17 @@ For main announcements, we have <#776331788062687242> channel. You can take up s
 Enjoy your stay here, have fun slight_smile""".format(member)
     await guild.system_channel.send(to_send)
 
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
 
+    if message.content.lower().startswith('!quora'):
+        username = message.content[7:]
+        try:
+            await message.channel.send(User(username))
+        except Exception as e:
+            await message.channel.send(e)
+          
+    
 client.run(TOKEN)
