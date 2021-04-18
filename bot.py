@@ -19,10 +19,6 @@ async def on_ready():
 async def on_member_join(member):
     print(member)
     guild = member.guild
-    introduction = client.get_channel(INTRO_CHANNEL)
-    rules = client.get_channel(RULE_CHANNEL)
-    announcements = client.get_channel(ANN_CHANNEL)
-    self_roles = client.get_channel(ROLE_CHANNEL)
     
     to_send = """Hey {0.mention}, welcome to Quorans! 
 Before moving forward please head over to the <#776135350287728690> channel and introduce yourself. Making an introduction is mandatory, to gain access to the server.
@@ -42,6 +38,6 @@ async def on_message(message):
             await message.channel.send(User(username))
         except Exception as e:
             await message.channel.send(e)
-          
+    
     
 client.run(TOKEN)
