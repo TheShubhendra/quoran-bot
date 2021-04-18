@@ -3,10 +3,6 @@ from decouple import config
 import discord
 
 TOKEN = config("TOKEN")
-INTRO_CHANNEL = config("INTRO_CHANNEL")
-RULE_CHANNEL = config("RULE_CHANNEL")
-ANN_CHANNEL = config("ANN_CHANNEL")
-ROLE_CHANNEL = config("ROLE_CHANNEL")
 
 logging.basicConfig(level=logging.INFO)
 
