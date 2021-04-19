@@ -3,8 +3,11 @@ from decouple import config
 import discord
 from profiles.quora import User
 TOKEN = config("TOKEN")
-
-logging.basicConfig(level=logging.INFO)
+UNVERIFIED_ROLE_ID = int(config("UNVERIFIED_ROLE_ID"))
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(message)s",
+    level=logging.INFO,
+)
 
 intents = discord.Intents.all()
 #intents.members = True
@@ -26,12 +29,9 @@ Read the <#776147848709275679> channel and abide by it, please.
 For main announcements, we have <#776331788062687242> channel. You can take up self roles in <#776791052924616745> channel (after verification).
 
 Hope you enjoy your stay here :slight_smile:""".format(member.mention, guild.name)
-    try:
-        role = guild.get_role(833512266934386728)
-        await member.add_roles(role, reason = "g")
-        await guild.system_channel.send(welcome_text)
-    except Exception as e:
-        print(e)
+    await guild.system_channel.send(welcome_text)
+    role = guild.get_role(UNVERIFIED_ROLE_ID)
+    await member.add_roles(role)
 
 async def get_quora(username):
     user = User(username)
